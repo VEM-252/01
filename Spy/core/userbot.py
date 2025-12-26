@@ -51,8 +51,8 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("Dil_Feelings_Will1")
-                await self.one.join_chat("Dil_Feelings_Will1")
+                await self.one.join_chat("NOBITA_SUPPORT")
+                await self.one.join_chat("NOBITA_SUPPORT")
             except:
                 pass
             assistants.append(1)
