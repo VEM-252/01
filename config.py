@@ -21,11 +21,11 @@ SONG_DOWNLOAD_DURATION = int(
     getenv("SONG_DOWNLOAD_DURATION_LIMIT", "54000")
 )
 
-LOGGER_ID = int(getenv("LOGGER_ID", "-1002512951867"))
+LOGGER_ID = int(getenv("LOGGER_ID", "-1003034048678"))
 
-OWNER_ID = int(getenv("OWNER_ID", "8140988754"))
+OWNER_ID = int(getenv("OWNER_ID", "7967418569"))
 
-BOT_USERNAME = getenv("BOT_USERNAME" , "Annu_Music_Robot")
+BOT_USERNAME = getenv("BOT_USERNAME" , "aaru_music_rbot")
 
 COMMAND_HANDLER = getenv("COMMAND_HANDLER", "! / .").split()
 
@@ -42,8 +42,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", ""
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/ABOUT_VENOM_OP")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/Scince_sangrah_official_annu_sir")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/about_deadly_venom")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
 
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 AUTO_SUGGESTION_MODE = getenv("AUTO_SUGGESTION_MODE", "True")
