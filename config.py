@@ -35,7 +35,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/stkeditz/SpyMusic",
+    "https://github.com/lll-DEADLY-VENOM-lll/AARU_MUSIC",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "SPY")
 GIT_TOKEN = getenv(
@@ -86,12 +86,12 @@ clean = {}
 autoclean = []
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://iili.io/FcUbOvV.md.jpg"
+    "START_IMG_URL", "https://graph.org/file/7fbabc4b791cebc67a013-1521e1b3ec530f5fe1.jpg"
 )
 PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://iili.io/FcUmaMg.md.jpg"
+    "PING_IMG_URL", "https://graph.org/file/df9f00159effce45fa2e2-f1c40978b063a5462a.jpg"
 )
-PLAYLIST_IMG_URL = "https://iili.io/FcUDpdQ.md.jpg"
+PLAYLIST_IMG_URL = "https://graph.org/file/75d4a43a76f4272d117d1-a3b25f8c9777d7de2a.jpg"
 STATS_IMG_URL = "https://te.legra.ph/file/4a7c28726502e24ea0fe0.jpg"
 TELEGRAM_AUDIO_URL = "https://te.legra.ph/file/810f874873e1565cf5732.jpg"
 TELEGRAM_VIDEO_URL = "https://te.legra.ph/file/16d7dd76f4ce8b8b01fdf.jpg"
