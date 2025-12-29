@@ -1,35 +1,34 @@
 import asyncio
+import os
 import re
 import requests
 from typing import Union
-from pyrogram.enums import MessageEntityType
-from pyrogram.types import Message
 
-# List of working Invidious instances
+# Invidious Instances list (for No-API/No-Cookie)
 INSTANCES = [
     "https://yewtu.be",
     "https://inv.riverside.rocks",
     "https://invidious.snopyta.org",
-    "https://vid.puffyan.us",
-    "https://invidious.kavin.rocks"
+    "https://vid.puffyan.us"
 ]
 
-def get_instance():
-    # Aap isme random logic bhi daal sakte hain, filhal pehla use kar rahe hain
-    return INSTANCES[0]
+import yt_dlp
+from pyrogram.enums import MessageEntityType
+from pyrogram.types import Message
 
-async def time_to_seconds(time):
-    # Agar aapka utils formatters load nahi ho raha toh ye backup hai
-    try:
-        parts = list(map(int, time.split(':')))
-        return sum(x * 60**i for i, x in enumerate(reversed(parts)))
-    except:
-        return 0
+# Agar aapko utils se functions import karne hain toh:
+# from Spy.utils.database import is_on_off
+# from Spy.utils.formatters import time_to_seconds
+
+def get_instance():
+    return INSTANCES[0]
 
 class YouTubeAPI:
     def __init__(self):
         self.base = "https://www.youtube.com/watch?v="
         self.regex = r"(?:youtube\.com|youtu\.be)"
+        self.status = "https://www.youtube.com/oembed?url="
+        self.listbase = "https://youtube.com/playlist?list="
 
     async def exists(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
@@ -50,26 +49,27 @@ class YouTubeAPI:
                         return text[entity.offset : entity.offset + entity.length]
         return None
 
+    # --- INVIDIOUS POWERED DETAILS (No API/Cookies) ---
     async def details(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
             vidid = link
         else:
-            # Link se Video ID nikaalna
-            vidid = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", link).group(1)
+            search = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", link)
+            vidid = search.group(1) if search else link
 
         instance = get_instance()
         try:
-            # Invidious API call for details
+            # Fetch from Invidious instead of YTMusic API
             api_url = f"{instance}/api/v1/videos/{vidid}"
             res = requests.get(api_url, timeout=10).json()
             
             title = res.get("title", "Unknown")
             duration_sec = res.get("lengthSeconds", 0)
             duration_min = f"{duration_sec // 60:02d}:{duration_sec % 60:02d}"
-            thumbnail = f"{instance}/vi/{vidid}/maxresdefault.jpg"
+            thumbnail = f"https://img.youtube.com/vi/{vidid}/maxresdefault.jpg"
             
-            # Streaming link nikaalna (audio only)
-            audio_url = ""
+            # Streaming Link Extraction
+            audio_url = None
             for fmt in res.get("adaptiveFormats", []):
                 if "audio/" in fmt.get("type", ""):
                     audio_url = fmt["url"]
@@ -77,13 +77,32 @@ class YouTubeAPI:
             
             return title, duration_min, duration_sec, thumbnail, vidid, audio_url
         except Exception as e:
-            print(f"Error in details: {e}")
+            print(f"Invidious Error: {e}")
             return None
 
+    async def title(self, link: str, videoid: Union[bool, str] = None):
+        res = await self.details(link, videoid)
+        return res[0] if res else "Unknown"
+
+    async def duration(self, link: str, videoid: Union[bool, str] = None):
+        res = await self.details(link, videoid)
+        return res[1] if res else "00:00"
+
+    async def thumbnail(self, link: str, videoid: Union[bool, str] = None):
+        res = await self.details(link, videoid)
+        return res[3] if res else None
+
+    # --- VOICE CHAT PLAYING LINK ---
+    async def video(self, link: str, videoid: Union[bool, str] = None):
+        res = await self.details(link, videoid)
+        if res and res[5]: # stream_url
+            return 1, res[5]
+        return 0, "No Stream Found"
+
+    # --- SEARCH & TRACK LOGIC ---
     async def track(self, query: str, videoid: Union[bool, str] = None):
         instance = get_instance()
         try:
-            # Search logic if query is not a link
             if not await self.exists(query):
                 search_url = f"{instance}/api/v1/search?q={query}&type=video"
                 search_res = requests.get(search_url, timeout=10).json()
@@ -91,38 +110,71 @@ class YouTubeAPI:
                     return None, None
                 vidid = search_res[0]["videoId"]
             else:
-                vidid = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", query).group(1)
+                search = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", query)
+                vidid = search.group(1) if search else query
 
             res = await self.details(vidid, videoid=True)
             if not res:
                 return None, None
             
             title, duration_min, duration_sec, thumbnail, vidid, audio_url = res
-            
             track_details = {
                 "title": title,
                 "link": self.base + vidid,
                 "vidid": vidid,
                 "duration_min": duration_min,
                 "thumb": thumbnail,
-                "stream_link": audio_url # Direct play ke liye
+                "stream_link": audio_url
             }
             return track_details, vidid
         except Exception as e:
-            print(f"Error in track: {e}")
+            print(f"Track Error: {e}")
             return None, None
 
-    async def video(self, link: str, videoid: Union[bool, str] = None):
-        # Voice Chat mein play karne ke liye direct link deta hai
-        res = await self.details(link, videoid)
-        if res:
-            return 1, res[5] # audio_url returns here
-        return 0, "Error fetching stream"
+    # --- SEARCH SLIDER (Top 10 Results) ---
+    async def slider(self, query: str, query_type: int, videoid: Union[bool, str] = None):
+        instance = get_instance()
+        try:
+            search_url = f"{instance}/api/v1/search?q={query}&type=video"
+            res = requests.get(search_url, timeout=10).json()
+            result = res[query_type]
+            
+            title = result["title"]
+            duration_sec = result.get("lengthSeconds", 0)
+            duration_min = f"{duration_sec // 60:02d}:{duration_sec % 60:02d}"
+            vidid = result["videoId"]
+            thumbnail = f"https://img.youtube.com/vi/{vidid}/maxresdefault.jpg"
+            return title, duration_min, thumbnail, vidid
+        except:
+            return None
 
-    async def download(self, link: str, mystic, video=None, videoid=None, songaudio=None, songvideo=None, title=None):
-        # Invidious se direct link mil raha hai toh download ki zarurat nahi padti 
-        # Lekin agar file chahiye toh hum stream URL return kar denge
-        res = await self.details(link, videoid)
-        if res:
-            return res[5], True # Directly streaming the URL
-        return None, False
+    # --- DOWNLOAD LOGIC (Using yt-dlp from your requirements) ---
+    async def download(self, link: str, mystic, video=None, videoid=None, songaudio=None, songvideo=None, format_id=None, title=None):
+        if videoid:
+            link = self.base + link
+        loop = asyncio.get_running_loop()
+
+        # yt-dlp setup (no cookies needed for most songs)
+        ydl_opts = {
+            "format": "bestaudio/best" if not video else "best",
+            "outtmpl": "downloads/%(id)s.%(ext)s",
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "quiet": True,
+        }
+
+        def dl():
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(link, download=True)
+                return ydl.prepare_filename(info)
+
+        # Download path return
+        try:
+            file_path = await loop.run_in_executor(None, dl)
+            return file_path, True
+        except Exception as e:
+            # If download fails, return the Invidious stream URL as fallback
+            res = await self.details(link)
+            if res:
+                return res[5], True
+            return None, False
