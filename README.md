@@ -29,7 +29,7 @@
   </a>
 </p>
 
-This repo is a high-performance music bot for Telegram, designed to play high-quality audio and video in group calls. It is specially optimized for **Invidious Instances**, which means it doesn't need YouTube API or 
+This repo is a high-performance music bot for Telegram, designed to play high-quality audio and video in group calls. It is specially optimized for **Invidious Instances**, which means it doesn't need YouTube API 🥀🖤
 
 <hr>
 
