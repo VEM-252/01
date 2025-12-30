@@ -4,17 +4,17 @@ from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
 from logging import getLogger
-from ShrutiMusic import LOGGER
+from Spy import LOGGER
 from pyrogram.types import Message
-from ShrutiMusic.misc import SUDOERS
-from ShrutiMusic import app
-from ShrutiMusic.utils.database import *
-from ShrutiMusic.utils.database import db
+from Spy.misc import SUDOERS
+from Spy import app
+from Spy.utils.database import *
+from Spy.utils.database import db
 
 try:
     wlcm = db.welcome
 except:
-    from ShrutiMusic.utils.database import welcome as wlcm
+    from Spy.utils.database import welcome as wlcm
 
 LOGGER = getLogger(__name__)
 
@@ -38,13 +38,13 @@ def circle(pfp, size=(450, 450)):
     return pfp
 
 def welcomepic(pic, user, chat, id, uname):
-    background = Image.open("ShrutiMusic/assets/welcome.png")
+    background = Image.opene.open("Spy/assets/welcome
     pfp = Image.open(pic).convert("RGBA")
     pfp = circle(pfp)
     pfp = pfp.resize((450, 450)) 
     draw = ImageDraw.Draw(background)
-    font = ImageFont.truetype('ShrutiMusic/assets/font.ttf', size=45)
-    font2 = ImageFont.truetype('ShrutiMusic/assets/font.ttf', size=90)
+    font = ImageFont.truetype(etype('Spy/assets/fon, size=45)
+    font2 = ImageFont.truetype(etype('Spy/assets/fon, size=90)
     draw.text((65, 250), f'NAME : {unidecode(user)}', fill="white", font=font)
     draw.text((65, 340), f'ID : {id}', fill="white", font=font)
     draw.text((65, 430), f"USERNAME : {uname}", fill="white", font=font)
