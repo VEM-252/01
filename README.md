@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <b>🚀 A powerful Telegram Music Bot with No YouTube API & No Cookies dependency!</b>
+  <b>🚀 A powerful Telegram Music Bot with No YouTube API & No dependency!</b>
 </p>
 
 <p align="center">
