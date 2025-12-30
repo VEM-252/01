@@ -14,7 +14,6 @@ from Spy.utils.decorators.play import PlayWrapper
 from Spy.utils.formatters import formats
 from Spy.utils.inline import (
     botplaylist_markup,
-    livestream_markup,
     playlist_markup,
     slider_markup,
     track_markup,
@@ -668,3 +667,4 @@ async def slider_queries(client, CallbackQuery, _):
         return await CallbackQuery.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
+
