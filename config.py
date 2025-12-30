@@ -24,8 +24,8 @@ SUDO_USERS = list(map(int, getenv("SUDO_USERS", "7967418569").split()))
 
 # --- CUSTOMIZATION ---
 COMMAND_HANDLER = getenv("COMMAND_HANDLER", "! / .").split()
-HEROKU_APP_NAME = AME = getenv("HEROKU_APP_
-HEROKU_API_KEY = KEY = getenv("HEROKU_API
+HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
+HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = EPO = getenv("UPSTREAM, EPO", "https://github.com/lll-DEADLY-VENOM-lll/AARU_M
 UPSTREAM_BRANCH = NCH = getenv("UPSTREAM_B, NCH", 
