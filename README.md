@@ -1,99 +1,101 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-</p>
+# ──「 sᴘʏ ✘ ᴍᴜsɪᴄ 」──
 
-<h1 align="center">
-  ──「 ᴀᴀʀᴜ ✘ ᴍᴜsɪᴄ 」──
-</h1>
+"""
+Telegram Music Bot
+A bot to play music in Telegram video chats.
+"""
 
-<p align="center">
-  <img src="https://graph.org/file/988002df35c2420455d64.jpg" width="400" alt="Main Logo">
-</p>
+# 🍁 About This Bot
+about_bot = "This repository helps you deploy a Telegram Music Bot that streams songs directly into video chats."
 
-<p align="center">
-  <b>🚀 A powerful Telegram Music Bot with No YouTube API & No dependency!</b>
-</p>
+# ♢ How to make your own
+def deploy_on_heroku():
+    steps = [
+        "Fork this repository",
+        "Click the Deploy button and follow the steps",
+        "Set up environment variables after deployment"
+    ]
+    return steps
 
-<p align="center">
-  <a href="https://t.me/about_deadly_venom"><img src="https://img.shields.io/badge/Updates-Channel-blue?style=for-the-badge&logo=telegram"></a>
-  <a href="https://t.me/NOBITA_SUPPORT"><img src="https://img.shields.io/badge/Support-Chat-red?style=for-the-badge&logo=telegram"></a>
-</p>
+def host_locally_vps():
+    commands = [
+        "sudo apt-get install python3-pip ffmpeg -y",
+        "sudo pip3 install -U pip",
+        "curl -fssL https://deb.nodesource.com/setup_19.x | sudo -E bash -",
+        "sudo apt-get install nodejs -y && npm i -g npm",
+        "git clone https://github.com/stkeditz/SpyMusic && cd SpyMusic",
+        "pip3 install -U -r requirements.txt",
+        "bash setup",
+        "sudo apt install tmux",
+        "tmux kill-session",
+        "tmux",
+        "bash start",
+        "# Detach with Ctrl+b then d"
+    ]
+    return commands
 
-<hr>
+# 🔑 Vars and Details
+mandatory_vars = {
+    "API_ID": "Get from my.telegram.org",
+    "API_HASH": "Get from my.telegram.org",
+    "BOT_TOKEN": "Obtain from @BotFather",
+    "OWNER_ID": "Your Telegram User ID",
+    "LOGGER_ID": "Chat ID for logs (bot must be admin)",
+    "STRING_SESSION": "String session for assistant account",
+    "MONGO_DB_URI": "MongoDB URI for database"
+}
 
-## 🍁 About This Bot
+optional_vars = {
+    "UPDATES_CHANNEL": "Public channel username (bot must be admin there)"
+}
 
-<p align="center">
-  <a href="https://t.me/GODHYPER_O_P">
-    <img src="https://iili.io/F0aiAdu.md.jpg" width="400">
-  </a>
-</p>
+# ⚡ Features
+features = [
+    "Superfast download & streaming",
+    "No ads while playing songs",
+    "User-friendly interface",
+    "MongoDB database support for broadcasting",
+    "Real-time CPU, RAM, and internet usage stats",
+    "Ping check",
+    "Kickme & Video Chat notifier",
+    "Channel support",
+    "Clean, optimized codebase"
+]
 
-This repo is a high-performance music bot for Telegram, designed to play high-quality audio and video in group calls. It is specially optimized for **Invidious Instances**, which means it doesn't need YouTube API 🥀🖤
+# 🎮 Commands
+commands = {
+    "/start": "Check if bot is alive",
+    "/play or /vplay or /cplay": "Play requested track in video chat",
+    "/playforce": "Force play (stop current stream and start new one)",
+    "/channelplay [username|id]": "Connect channel to group for streaming",
+    "/seek": "Seek stream to given duration",
+    "/seekback": "Seek backward",
+    "/pause": "Pause current stream",
+    "/resume": "Resume paused stream",
+    "/skip": "Skip current track and play next in queue",
+    "/end or /stop": "End stream and clear queue",
+    "/reboot": "Restart bot instantly (in logger chat)"
+}
 
-<hr>
+# 📡 Channel Support
+channel_support = "Add both the bot and assistant as Admins in your channel to enable channel streaming."
 
-## 🌟 Modern Features
+# 🙌 Credits
+credits = [
+    "stkeditz (https://github.com/stkeditz)",
+    "Telegram Contact (https://t.me/dil_sagar_121)",
+    "Everyone who contributed to this journey 🚀"
+]
 
-*   🛡️ **No YouTube API Required:** Uses Invidious instances to fetch music.
-*   🍪 **YES Cookies Needed: C .
-*   ⚡ **Ultra-Fast Streaming:** Lag-free audio/video playback.
-*   🎨 **Aesthetic UI:** Beautifully designed inline buttons and simple fonts.
-*   🎼 **Multi-Platform:** Supports YouTube, Spotify, Apple Music, and Telegram Files.
-
-<hr>
-
-## 🖥️ Deployment Methods
-
-<details>
-<summary><b>🚀 Deploy on Heroku (Fast)</b></summary>
-<br>
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy/)
-</details>
-
-<details>
-<summary><b>🛠️ Host on VPS (Manual)</b></summary>
-<br>
-
-```bash
-sudo apt-get update && sudo apt-get install python3-pip ffmpeg -y
-curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
-sudo apt-get install nodejs -y
-git clone https://github.com/NEO-O-P/AUNU_MUSIC
-cd AUNU_MUSIC
-pip3 install -r requirements.txt
-bash start
-
-</details>
-<hr>
-⚙️ Mandatory Vars
-Variable	Description
-API_ID	Get this from my.telegram.org
-API_HASH	Get this from my.telegram.org
-BOT_TOKEN	Get this from @BotFather
-MONGO_DB_URI	Your MongoDB Connection String
-OWNER_ID	Your Telegram UserID
-STRING_SESSION	Pyrogram Session for Assistant
-
-<hr>
-🎮 Basic Commands & Usage
-<p align="center">
-<img src="https://graph.org/file/801e199f756d83cb4d7f5-068bb84543385c04b6.jpg" width="500">
-</p>
-/play : Starts streaming the requested track.
-/vplay : Starts video streaming.
-/pause : Pause the current stream.
-/resume : Resume the paused stream.
-/skip : Skip to the next track in queue.
-/stop : Clear queue and end the stream.
-
-<hr>
-❤️ Credits
-Dil Sagar - Project Lead
-Team Spy - Core Development
-Everyone In This Journey!
-<p align="center">
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-</p>
-```
+if __name__ == "__main__":
+    print("──「 sᴘʏ ✘ ᴍᴜsɪᴄ 」──")
+    print("\nAbout:", about_bot)
+    print("\nFeatures:")
+    for f in features:
+        print("-", f)
+    print("\nCommands:")
+    for cmd, desc in commands.items():
+        print(f"{cmd}: {desc}")
+    print("\nCredits:")
+    for c in credits:
+        print("-", c)
