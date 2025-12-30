@@ -29,6 +29,8 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/lll-DEADLY-VENOM-lll/AARU_MUSIC")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "SPY")
+GIT_TOKEN = getenv("GIT_TOKEN", None)
+
 
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/about_deadly_venom")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
