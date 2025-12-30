@@ -6,7 +6,7 @@
 
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://graph.org/file/7fbabc4b791cebc67a013-1521e1b3ec530f5fe1.jpg"></a>
 
-<p align="center"><a href="https://t.me/KIRU_OP"><img src="https://graph.org/file/7fbabc4b791cebc67a013-1521e1b3ec530f5fe1.jpg"></a></p>
+<p align="center"><a href="https://t.me/KIRU_OP"><img src="https://graph.org/file/75d4a43a76f4272d117d1-a3b25f8c9777d7de2a.jpg"></a></p>
 
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://graph.org/file/7fbabc4b791cebc67a013-1521e1b3ec530f5fe1.jpg"></a>  
  <p align="center">
