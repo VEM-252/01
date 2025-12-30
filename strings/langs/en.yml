@@ -174,13 +174,11 @@ queue_6: "<b>🕚 ᴅᴜʀᴀᴛɪᴏɴ :</b> ʟɪᴠᴇ sᴛʀᴇᴀᴍ (ᴜɴ�
 queue_7: "\nᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ᴛᴏ sᴇᴇ ᴛʜᴇ ғᴜʟʟ ǫᴜᴇᴜᴇ."
 queue_8: "<b>⚡ {0} ᴘʟᴀʏᴇʀ</b>\n\n🎶 <b>sᴛʀᴇᴀᴍɪɴɢ :</b> {1}\n\n🔗 <b>ᴛʏᴘᴇ :</b> {2}\n👤 <b>ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {3}\n{4}"
 
-stream_1 : "<b><blockquote>Sᴛᴀʀᴛᴇᴅ | Pʟᴀʏɪɴɢ Iɴ Hᴇᴀᴠᴇɴ</b>\n\n<b>➣ Tɪᴛʟᴇ :</b> <a href={0}>{1}</a>\n<b>➦ Dᴜʀᴀᴛɪᴏɴ :</b> {2} ᴍɪɴᴜᴛᴇs\n<b>➦ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {3}</blockquote>\n\n||<b><blockquote>ᴍᴀᴅᴇ ᴡɪᴛʜ 🖤 ʙʏ <a href=\"https://t.me/lingtech_dev\">ꪜηισ𝖝 ᗪҽѵ</a></blockquote></b>||"
-stream_2 : "๏ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</b>\n\n<b>‣ Sᴛʀᴇᴀᴍ ᴛʏᴘᴇ :</b> ʟɪᴠᴇ sᴛʀᴇᴀᴍ [ᴜʀʟ]\n<b>‣ Rᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {0}\n\nᴍᴀᴅᴇ ᴡɪᴛʜ 🖤 ʙʏ <a href=\"https://t.me/a_kash_maurya\"🇦KΛsh 😈</a>"
-
+stream_1: "<blockquote>✨ <b>ɴᴏᴡ ᴘʟᴀʏɪɴɢ ɪɴ ʜᴇᴀᴠᴇɴ</b>\n\n<b>➻ ᴛɪᴛʟᴇ :</b> <a href={0}>{1}</a>\n<b>➲ ᴅᴜʀᴀᴛɪᴏɴ :</b> {2} ᴍɪɴᴜᴛᴇs\n<b>➲ ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {3}</blockquote>\n\n||<blockquote>ᴍᴀᴅᴇ ᴡɪᴛʜ 🖤 ʙʏ <a href=\"https://t.me/lingtech_dev\">ꪜηισ𝖝 ᗪҽѵ</a></blockquote>||"
+stream_2: "<blockquote>🌐 <b>ʟɪᴠᴇ sᴛʀᴇᴀᴍ sᴛᴀʀᴛᴇᴅ</b>\n\n<b>➻ ᴛʏᴘᴇ :</b> ʟɪᴠᴇ sᴛʀᴇᴀᴍ [ᴜʀʟ]\n<b>➲ ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b> {0}</blockquote>\n\n||<blockquote>ᴍᴀᴅᴇ ᴡɪᴛʜ 🖤 ʙʏ <a href=\"https://t.me/lingtech_dev\">ꪜηισ𝖝 ᗪҽѵ</a></blockquote>||"
 
 CLOSE_BUTTON  : "✖️ ᴄʟᴏsᴇ ✖️"
 BACK_BUTTON : "↩️ ʙᴀᴄᴋ ↩️"
-
 
 S_B_1 : "🌸 ᴀᴅᴅ ᴍᴇ 🌸"
 S_B_2 : "💬 sᴜᴘᴘᴏʀᴛ 💬"
