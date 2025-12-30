@@ -66,7 +66,7 @@ def private_help_panel(_):
             InlineKeyboardButton(text="📖 Open Help Menu", url=f"https://t.me/{app.username}?start=help")
         ],
         [
-            InlineKeyboardButton(text="✨ Support", url="https://t.me/YourSupportGroup"),
-            InlineKeyboardButton(text="📢 Updates", url="https://t.me/YourChannel"),
+            InlineKeyboardButton(text="✨ Support", url="https://t.me/NOBITA_SUPPORT"),
+            InlineKeyboardButton(text="📢 Updates", url="https://t.me/about_deadly_venom"),
         ]
             ]
