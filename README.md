@@ -6,7 +6,7 @@
 
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"></a>
 
-<p align="center"><a href="https://t.me/HONEY_SINGH_121"><img src="https://telegra.ph/file/abc96d1ec9d101df8f988.jpg"></a></p>
+<p align="center"><a href="https://t.me/KIRU_OP"><img src="https://telegra.ph/file/abc96d1ec9d101df8f988.jpg"></a></p>
 
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"></a>  
  <p align="center">
@@ -170,6 +170,6 @@ Bot also Supported with Channels. Just add bot and assistant to the Channel as A
 
 ### Credits : 
 
-- [Me](https://github.com/stkeditz)
-- [Telegram](https://t.me/dil_sagar_121)
+- [Me](https://github.com/lll-DEADLY-VENOM-lll/SPY_MUSIC)
+- [Telegram](https://t.me/NOBITA_SUPPORT)
 - Everyone In This Journey !
