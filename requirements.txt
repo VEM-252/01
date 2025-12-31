@@ -31,3 +31,4 @@ youtube-search
 youtube-search-python
 wget
 ytmusicapi
+aria2
