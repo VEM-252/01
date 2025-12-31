@@ -24,9 +24,7 @@ from config import BANNED_USERS
 from strings import get_string
 
 
-VALID_EMOJII = ["🔥", "👀", "🥺", "😒", "💖",
-                "💘", "💕", "✨", "🥰", "🥀", "💔",
-                "🖤", "🫧"]
+VALID_EMOJII = [ "🫧 sᴛʀᴇᴀᴍɪɴɢ sᴏᴏɴ."]
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
@@ -159,4 +157,5 @@ async def welcome(client, message: Message):
                 await message.stop_propagation()
         except Exception as ex:
             print(ex)
+
 
