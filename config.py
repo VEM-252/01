@@ -72,9 +72,9 @@ userstats = {}
 clean = {}
 
 # --- IMAGES & UI ---
-START_IMG_URL = getenv("START_IMG_URL", "https://graph.org/file/7fbabc4b791cebc67a013-1521e1b3ec530f5fe1.jpg")
-PING_IMG_URL = getenv("PING_IMG_URL", "https://graph.org/file/df9f00159effce45fa2e2-f1c40978b063a5462a.jpg")
-PLAYLIST_IMG_URL = "https://graph.org/file/75d4a43a76f4272d117d1-a3b25f8c9777d7de2a.jpg"
+START_IMG_URL = getenv("START_IMG_URL", "https://graph.org/file/06fb0858375c8272e8977-a74161b961d68d6e37.jpg")
+PING_IMG_URL = getenv("PING_IMG_URL", "https://graph.org/file/caa8048904589afecfc7e-9fddb2a2dd421bd792.jpg")
+PLAYLIST_IMG_URL = "https://graph.org/file/ed20dc23c291e490916fd-41d97844ff0fb993c1.jpg"
 STATS_IMG_URL = "https://te.legra.ph/file/4a7c28726502e24ea0fe0.jpg"
 TELEGRAM_AUDIO_URL = "https://te.legra.ph/file/810f874873e1565cf5732.jpg"
 TELEGRAM_VIDEO_URL = "https://te.legra.ph/file/16d7dd76f4ce8b8b01fdf.jpg"
