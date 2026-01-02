@@ -69,7 +69,7 @@ async def play_commnd(
     fplay,
 ):
     # Sabse pehle loading bar 0% show karega
-    mystic = await message.reply_text("[ □□□□□ ] 0%")
+    mystic = await message.reply_text(" □□□□□  0%")
     await run_loading_bar(mystic)
     
     plist_id = None
