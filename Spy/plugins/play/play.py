@@ -27,11 +27,11 @@ from config import BANNED_USERS, lyrical
 async def run_loading_bar(mystic):
     # Bar ke saath percentage ka loop
     bar_steps = [
-        "[ ■□□□□ ] 20%",
-        "[ ■■□□□ ] 40%",
-        "[ ■■■□□ ] 60%",
-        "[ ■■■■□ ] 80%",
-        "[ ■■■■■ ] 100%"
+        " ■□□□□  20%",
+        " ■■□□□  40%",
+        " ■■■□□  60%",
+        " ■■■■□  80%",
+        " ■■■■■  100%"
     ]
     for step in bar_steps:
         try:
