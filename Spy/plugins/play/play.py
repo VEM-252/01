@@ -1,3 +1,4 @@
+import asyncio
 import random
 import string
 from pyrogram import filters
@@ -22,8 +23,22 @@ from Spy.utils.logger import play_logs
 from Spy.utils.stream.stream import stream
 from config import BANNED_USERS, lyrical
 
-
-EMOJII = ["🫧 sᴛʀᴇᴀᴍɪɴɢ sᴏᴏɴ..."]
+# --- LOADING BAR WITH NUMBERS FUNCTION ---
+async def run_loading_bar(mystic):
+    # Bar ke saath percentage ka loop
+    bar_steps = [
+        " ■□□□□  20%",
+        " ■■□□□  40%",
+        " ■■■□□  60%",
+        " ■■■■□  80%",
+        " ■■■■■  100%"
+    ]
+    for step in bar_steps:
+        try:
+            await mystic.edit_text(step)
+            await asyncio.sleep(0.4) # Speed control
+        except:
+            break
 
 @app.on_message(
     filters.command(
@@ -53,10 +68,10 @@ async def play_commnd(
     url,
     fplay,
 ):
-    Emoji = random.choice(EMOJII)
-    mystic = await message.reply_text(
-        _["play_2"].format(channel) if channel else Emoji
-    )
+    # Sabse pehle loading bar 0% show karega
+    mystic = await message.reply_text(" □□□□□  0%")
+    await run_loading_bar(mystic)
+    
     plist_id = None
     slider = None
     plist_type = None
@@ -454,10 +469,11 @@ async def play_music(client, CallbackQuery, _):
         await CallbackQuery.answer()
     except:
         pass
-    Emoji = random.choice(EMOJIS)
-    mystic = await CallbackQuery.message.reply_text(
-        _["play_2"].format(channel) if channel else Emoji
-    )
+    
+    # Callback loading
+    mystic = await CallbackQuery.message.reply_text("[ □□□□□ ] 0%")
+    await run_loading_bar(mystic)
+
     try:
         details, track_id = await YouTube.track(vidid, True)
     except:
@@ -542,10 +558,11 @@ async def play_playlists_command(client, CallbackQuery, _):
         await CallbackQuery.answer()
     except:
         pass
-    Emoji = random.choice(EMOJIS)
-    mystic = await CallbackQuery.message.reply_text(
-        _["play_2"].format(channel) if channel else Emoji
-    )
+
+    # Playlist loading
+    mystic = await CallbackQuery.message.reply_text("[ □□□□□ ] 0%")
+    await run_loading_bar(mystic)
+
     videoid = lyrical.get(videoid)
     video = True if mode == "v" else None
     ffplay = True if fplay == "f" else None
@@ -664,6 +681,3 @@ async def slider_queries(client, CallbackQuery, _):
         return await CallbackQuery.edit_message_media(
             media=med, reply_markup=InlineKeyboardMarkup(buttons)
         )
-
-
-
