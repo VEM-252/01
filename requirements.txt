@@ -24,7 +24,6 @@ spotipy
 pymongo==3.12.0
 tgcrypto;sys_platform != "win32"
 unidecode
-uvloop;sys_platform != "win32"
 yt-dlp
 youtube-search
 youtube-search-python
