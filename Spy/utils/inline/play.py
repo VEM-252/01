@@ -24,15 +24,8 @@ def track_markup(_, videoid, user_id, channel, fplay):
         ],
         [
             InlineKeyboardButton(
-                text="ʀᴇᴘʟᴀʏ ↺", callback_data=f"ADMIN Replay|{chat_id}"
-            ),
-            InlineKeyboardButton(text="ᴇɴᴅ ▢", callback_data=f"ADMIN Stop|{chat_id}"),
-        ],
-        [
-            InlineKeyboardButton(
-                text="๏ ᴍᴏʀᴇ ๏",
-                callback_data=f"PanelMarkup None|{chat_id}",
-            ),
+                text=_["CLOSE_BUTTON"], callback_data=f"forceclose {videoid}|{user_id}"
+            )
         ],
     ]
     return buttons
@@ -129,7 +122,53 @@ def stream_markup(_, videoid, chat_id):
     ]
     return buttons
 
-# 4. Panel Markup 1 (Shuffle & Loop)
+# 4. Playlist Markup (JO ERROR AA RAHA THA USKA FIX)
+def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text=_["P_B_1"],
+                callback_data=f"VIPPlaylists {videoid}|{user_id}|{ptype}|a|{channel}|{fplay}",
+            ),
+            InlineKeyboardButton(
+                text=_["P_B_2"],
+                callback_data=f"VIPPlaylists {videoid}|{user_id}|{ptype}|v|{channel}|{fplay}",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=_["CLOSE_BUTTON"],
+                callback_data=f"forceclose {videoid}|{user_id}",
+            ),
+        ],
+    ]
+    return buttons
+
+# 5. Livestream Markup
+def livestream_markup(_, videoid, user_id, mode, channel, fplay):
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text=_["S_B_5"],
+                url=f"https://t.me/{app.username}?startgroup=true",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=_["P_B_3"],
+                callback_data=f"LiveStream {videoid}|{user_id}|{mode}|{channel}|{fplay}",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text=_["CLOSE_BUTTON"],
+                callback_data=f"forceclose {videoid}|{user_id}",
+            ),
+        ],
+    ]
+    return buttons
+
+# 6. Panel Markup 1 (Shuffle & Loop)
 def panel_markup_1(_, videoid, chat_id):
     buttons = [
         [
@@ -168,7 +207,7 @@ def panel_markup_1(_, videoid, chat_id):
     ]
     return buttons
 
-# 5. Panel Markup 2 (Speed Controls)
+# 7. Panel Markup 2 (Speed Controls)
 def panel_markup_2(_, videoid, chat_id):
     buttons = [
         [
@@ -210,7 +249,7 @@ def panel_markup_2(_, videoid, chat_id):
     ]
     return buttons
 
-# 6. Slider Markup (Search Navigation)
+# 8. Slider Markup
 def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
     query = f"{query[:20]}"
     buttons = [
@@ -247,8 +286,8 @@ def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
     ]
     return buttons
 
-# 7. Close Markup
+# 9. Close Markup
 def close_markup(_):
     return InlineKeyboardMarkup(
         [[InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]
-    )
+                    )
