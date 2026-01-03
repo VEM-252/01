@@ -1,24 +1,23 @@
 from typing import Union
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from pyrogram.types import InlineKeyboardButton
-
-
+# Spy Music Settings Markup
 def setting_markup(_):
     buttons = [
         [
-            InlineKeyboardButton(text=_["ST_B_1"], callback_data="AQ"),
-            InlineKeyboardButton(text=_["ST_B_2"], callback_data="VQ"),
+            InlineKeyboardButton(text="AUDIO SETTINGS", callback_data="AQ"),
+            InlineKeyboardButton(text="VIDEO SETTINGS", callback_data="VQ"),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_3"], callback_data="AU"),
-            InlineKeyboardButton(text=_["ST_B_6"], callback_data="LG"),
+            InlineKeyboardButton(text="AUTH AGENTS", callback_data="AU"),
+            InlineKeyboardButton(text="LANGUAGE", callback_data="LG"),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_5"], callback_data="PM"),
-            InlineKeyboardButton(text=_["ST_B_7"], callback_data="CM"),
+            InlineKeyboardButton(text="PLAY MODE", callback_data="PM"),
+            InlineKeyboardButton(text="CLEAN MODE", callback_data="CM"),
         ],
         [
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
@@ -34,44 +33,30 @@ def audio_quality_markup(
     buttons = [
         [
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_8"].format("✅") if LOW == True else _["ST_B_8"].format("")
-                ),
+                text="LOW [SELECTED]" if LOW == True else "LOW",
                 callback_data="LOW",
             ),
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_9"].format("✅")
-                    if MEDIUM == True
-                    else _["ST_B_9"].format("")
-                ),
+                text="MEDIUM [SELECTED]" if MEDIUM == True else "MEDIUM",
                 callback_data="MEDIUM",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_10"].format("✅")
-                    if HIGH == True
-                    else _["ST_B_10"].format("")
-                ),
+                text="HIGH [SELECTED]" if HIGH == True else "HIGH",
                 callback_data="HIGH",
             ),
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_11"].format("✅")
-                    if STUDIO == True
-                    else _["ST_B_11"].format("")
-                ),
+                text="STUDIO [SELECTED]" if STUDIO == True else "STUDIO",
                 callback_data="STUDIO",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=_["BACK_BUTTON"],
+                text="BACK",
                 callback_data="settingsback_helper",
             ),
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
@@ -89,64 +74,40 @@ def video_quality_markup(
     buttons = [
         [
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_12"].format("✅")
-                    if SD_360p == True
-                    else _["ST_B_12"].format("")
-                ),
+                text="360p [SELECTED]" if SD_360p == True else "360p",
                 callback_data="SD_360p",
             ),
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_13"].format("✅")
-                    if SD_480p == True
-                    else _["ST_B_13"].format("")
-                ),
+                text="480p [SELECTED]" if SD_480p == True else "480p",
                 callback_data="SD_480p",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_14"].format("✅")
-                    if HD_720p == True
-                    else _["ST_B_14"].format("")
-                ),
+                text="720p [SELECTED]" if HD_720p == True else "720p",
                 callback_data="HD_720p",
             ),
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_15"].format("✅")
-                    if FHD_1080p == True
-                    else _["ST_B_15"].format("")
-                ),
+                text="1080p [SELECTED]" if FHD_1080p == True else "1080p",
                 callback_data="FHD_1080p",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_16"].format("✅")
-                    if QHD_2K == True
-                    else _["ST_B_16"].format("")
-                ),
+                text="2K [SELECTED]" if QHD_2K == True else "2K",
                 callback_data="QHD_2K",
             ),
             InlineKeyboardButton(
-                text=(
-                    _["ST_B_17"].format("✅")
-                    if UHD_4K == True
-                    else _["ST_B_17"].format("")
-                ),
+                text="4K [SELECTED]" if UHD_4K == True else "4K",
                 callback_data="UHD_4K",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=_["BACK_BUTTON"],
+                text="BACK",
                 callback_data="settingsback_helper",
             ),
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
@@ -159,25 +120,25 @@ def cleanmode_settings_markup(
 ):
     buttons = [
         [
-            InlineKeyboardButton(text=_["ST_B_7"], callback_data="CMANSWER"),
+            InlineKeyboardButton(text="CLEAN MODE INFO", callback_data="CMANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_18"] if status == True else _["ST_B_19"],
+                text="ENABLED" if status == True else "DISABLED",
                 callback_data="CLEANMODE",
             ),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_30"], callback_data="COMMANDANSWER"),
+            InlineKeyboardButton(text="COMMAND DELETE", callback_data="COMMANDANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_18"] if dels == True else _["ST_B_19"],
+                text="ENABLED" if dels == True else "DISABLED",
                 callback_data="COMMANDELMODE",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=_["BACK_BUTTON"],
+                text="BACK",
                 callback_data="settingsback_helper",
             ),
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
@@ -186,21 +147,21 @@ def cleanmode_settings_markup(
 def auth_users_markup(_, status: Union[bool, str] = None):
     buttons = [
         [
-            InlineKeyboardButton(text=_["ST_B_3"], callback_data="AUTHANSWER"),
+            InlineKeyboardButton(text="AUTH INFO", callback_data="AUTHANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_20"] if status == True else _["ST_B_21"],
+                text="ENABLED" if status == True else "DISABLED",
                 callback_data="AUTH",
             ),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_22"], callback_data="AUTHLIST"),
+            InlineKeyboardButton(text="AUTHORIZED AGENTS LIST", callback_data="AUTHLIST"),
         ],
         [
             InlineKeyboardButton(
-                text=_["BACK_BUTTON"],
+                text="BACK",
                 callback_data="settingsback_helper",
             ),
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
@@ -214,32 +175,52 @@ def playmode_users_markup(
 ):
     buttons = [
         [
-            InlineKeyboardButton(text=_["ST_B_23"], callback_data="SEARCHANSWER"),
+            InlineKeyboardButton(text="SEARCH MODE", callback_data="SEARCHANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_24"] if Direct == True else _["ST_B_25"],
+                text="DIRECT" if Direct == True else "INLINE",
                 callback_data="MODECHANGE",
             ),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_26"], callback_data="AUTHANSWER"),
+            InlineKeyboardButton(text="CHANNEL PLAY", callback_data="AUTHANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_20"] if Group == True else _["ST_B_21"],
+                text="ENABLED" if Group == True else "DISABLED",
                 callback_data="CHANNELMODECHANGE",
             ),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_29"], callback_data="PLAYTYPEANSWER"),
+            InlineKeyboardButton(text="PLAY TYPE", callback_data="PLAYTYPEANSWER"),
             InlineKeyboardButton(
-                text=_["ST_B_20"] if Playtype == True else _["ST_B_21"],
+                text="ADMINS ONLY" if Playtype == True else "EVERYONE",
                 callback_data="PLAYTYPECHANGE",
             ),
         ],
         [
             InlineKeyboardButton(
-                text=_["BACK_BUTTON"],
+                text="BACK",
                 callback_data="settingsback_helper",
             ),
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
         ],
     ]
     return buttons
+
+# Yeh function aapka error theek karega (Missing Function)
+def vote_mode_markup(_, status: Union[bool, str] = None):
+    buttons = [
+        [
+            InlineKeyboardButton(text="VOTING INFO", callback_data="VOTEANSWER"),
+            InlineKeyboardButton(
+                text="ENABLED" if status == True else "DISABLED",
+                callback_data="VOTEMODECHANGE",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="BACK",
+                callback_data="settingsback_helper",
+            ),
+            InlineKeyboardButton(text="CLOSE", callback_data="close"),
+        ],
+    ]
+    return InlineKeyboardMarkup(buttons)
