@@ -25,7 +25,7 @@ def stream_markup_timer(_, chat_id, played, dur):
     # Professional Progress Bar (▬ and ●)
     bar_length = 10
     filled_length = int(bar_length * umm // 100)
-    bar = "▬" * filled_length + "●" + "▬" * (bar_length - filled_length - 1)
+    bar = "━━" * filled_length + "●" + "──" * (bar_length - filled_length - 1)
     
     buttons = [
         [
@@ -35,13 +35,13 @@ def stream_markup_timer(_, chat_id, played, dur):
             )
         ],
         [
-            InlineKeyboardButton(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="✧", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="❚❚", callback_data=f"ADMIN Pause|{chat_id}"),
             InlineKeyboardButton(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
             InlineKeyboardButton(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="🔄 Replay", callback_data=f"ADMIN Replay|{chat_id}"),
+            InlineKeyboardButton(text="↻ Replay", callback_data=f"ADMIN Replay|{chat_id}"),
             InlineKeyboardButton(text="❌ Close", callback_data="close"),
         ],
     ]
@@ -52,11 +52,11 @@ def stream_markup(_, chat_id):
     buttons = [
         [
             InlineKeyboardButton(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="❚❚", callback_data=f"ADMIN Pause|{chat_id}"),
             InlineKeyboardButton(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="🔄 Replay", callback_data=f"ADMIN Replay|{chat_id}"),
+            InlineKeyboardButton(text="↻ Replay", callback_data=f"ADMIN Replay|{chat_id}"),
             InlineKeyboardButton(text="⏹ Stop", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
         [
@@ -87,9 +87,9 @@ def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
             InlineKeyboardButton(text="🎥 Video", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="⬅️", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
+            InlineKeyboardButton(text="◁", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
             InlineKeyboardButton(text="❌", callback_data=f"forceclose {query}|{user_id}"),
-            InlineKeyboardButton(text="➡️", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
+            InlineKeyboardButton(text="▷", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
         ],
     ]
     return buttonsi
