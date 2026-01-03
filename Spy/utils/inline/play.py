@@ -2,18 +2,18 @@ import math
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from Spy.utils.formatters import time_to_seconds
 
-# 1. Selection Markup (Ek hi line mein sab - Tiny Size)
+# 1. Selection Markup (Ek hi line mein sab - Sabse Chhota)
 def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
         [
             InlineKeyboardButton(text="🎵 ᴀᴜᴅɪᴏ", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
             InlineKeyboardButton(text="🎥 ᴠɪᴅᴇᴏ", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
-            InlineKeyboardButton(text="❌", callback_data=f"forceclose {videoid}|{user_id}"),
+            InlineKeyboardButton(text="❌ ᴄᴀɴᴄᴇʟ", callback_data=f"forceclose {videoid}|{user_id}"),
         ],
     ]
     return buttons
 
-# 2. Ultra-Mini Player (Icons only for maximum smallness)
+# 2. Ultra-Compact Player (Sabse zyada compressed layout)
 def stream_markup_timer(_, chat_id, played, dur):
     played_sec = time_to_seconds(played)
     duration_sec = time_to_seconds(dur)
@@ -29,55 +29,58 @@ def stream_markup_timer(_, chat_id, played, dur):
             InlineKeyboardButton(text=f"{played} {bar} {dur}", callback_data="GetTimer")
         ],
         [
-            # 5 Buttons in one row makes them very small
+            # Line 1: Main Controls (4 Buttons)
             InlineKeyboardButton(text="⏮", callback_data=f"ADMIN Prev|{chat_id}"),
             InlineKeyboardButton(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
             InlineKeyboardButton(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
             InlineKeyboardButton(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
-            InlineKeyboardButton(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="🔁 ʟᴏᴏᴘ", callback_data=f"ADMIN Loop|{chat_id}"),
-            InlineKeyboardButton(text="🔀 sʜᴜғғʟᴇ", callback_data=f"ADMIN Shuffle|{chat_id}"),
+            # Line 2: All Extra Controls (5 Buttons together = Tiny Size)
+            # Yahan Loop, Replay, Shuffle, Stop aur Close sab merge hain
+            InlineKeyboardButton(text="🔄", callback_data=f"ADMIN Replay|{chat_id}"),
+            InlineKeyboardButton(text="🔁", callback_data=f"ADMIN Loop|{chat_id}"),
+            InlineKeyboardButton(text="🔀", callback_data=f"ADMIN Shuffle|{chat_id}"),
+            InlineKeyboardButton(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
+            InlineKeyboardButton(text="🗑", callback_data="close"),
+        ],
+    ]
+    return buttons
+
+# 3. Mini Standard Player (No Timer)
+def stream_markup(_, chat_id):
+    buttons = [
+        [
+            InlineKeyboardButton(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
+            InlineKeyboardButton(text="🔄", callback_data=f"ADMIN Replay|{chat_id}"),
+        ],
+        [
+            InlineKeyboardButton(text="⏹ sᴛᴏᴘ", callback_data=f"ADMIN Stop|{chat_id}"),
             InlineKeyboardButton(text="🗑 ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
     return buttons
 
-# 3. Mini Standard Player (Sab ek line mein)
-def stream_markup(_, chat_id):
-    buttons = [
-        [
-            InlineKeyboardButton(text="⏸ ᴘᴀᴜsᴇ", callback_data=f"ADMIN Pause|{chat_id}"),
-            InlineKeyboardButton(text="▶️ ʀᴇs", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="⏭ sᴋɪᴘ", callback_data=f"ADMIN Skip|{chat_id}"),
-            InlineKeyboardButton(text="⏹ sᴛᴏᴘ", callback_data=f"ADMIN Stop|{chat_id}"),
-        ],
-        [
-            InlineKeyboardButton(text="🗑 ᴄʟᴏsᴇ ᴘʟᴀʏᴇʀ", callback_data="close"),
-        ],
-    ]
-    return buttons
-
-# 4. Search Slider (Maximum Small Buttons)
+# 4. Search Slider (Navigation merge kar di)
 def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
     query = f"{query[:20]}"
     buttons = [
         [
-            # Audio and Video in one line
-            InlineKeyboardButton(text="🎵 ᴀᴜᴅ", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
-            InlineKeyboardButton(text="🎥 ᴠɪᴅ", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎵 ᴀᴜᴅɪᴏ", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎥 ᴠɪᴅᴇᴏ", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
         ],
         [
-            # Navigation in one line
+            # Navigation aur Cancel ek hi row mein
             InlineKeyboardButton(text="⬅️", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
-            InlineKeyboardButton(text="❌", callback_data=f"forceclose {query}|{user_id}"),
+            InlineKeyboardButton(text="❌ ᴄʟᴏsᴇ", callback_data=f"forceclose {query}|{user_id}"),
             InlineKeyboardButton(text="➡️", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
         ],
     ]
     return buttons
 
-# 5. Playlist (Smallest Layout)
+# 5. Playlist Markup (Compact)
 def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
     buttons = [
         [
@@ -86,4 +89,4 @@ def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
             InlineKeyboardButton(text="🗑", callback_data=f"forceclose {videoid}|{user_id}"),
         ],
     ]
-    return buttons 
+    return buttons
