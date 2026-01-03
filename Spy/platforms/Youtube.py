@@ -44,12 +44,12 @@ async def shell_cmd(cmd):
 async def get_stream_url(query, video=False):
     apis = [
         {
-            "url": "https://api.vniox.store/youtube",
-            "key": ""
+            "url": "http://194.182.77.199:1470/youtube",
+            "key": "VNI0X_oY6oVn7svGENco2"
         },
         {
-            "url": "https://api.vniox.store/youtube",
-            "key": ""
+            "url": "http://194.182.77.199:1470/youtube",
+            "key": "VNI0X_oY6oVn7svGENco2"
         }
     ]
 
