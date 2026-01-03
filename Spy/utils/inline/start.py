@@ -1,6 +1,7 @@
 from pyrogram.types import InlineKeyboardButton
+
 import config
-from Spy import app  # Using your old import structure
+from Spy import app
 
 
 def start_panel(_):
@@ -38,11 +39,6 @@ def private_panel(_):
             InlineKeyboardButton(
                 text="۞ 𝐅𝙴𝙰𝚃𝚄𝚁𝙴𝚂 ۞", callback_data="settings_back_helper"
             )
-        ],
-        [
-            InlineKeyboardButton(
-                text="• ʙᴏᴛ ɪɴғᴏ •", callback_data="bot_info_data"
-            ),
         ],
     ]
     return buttons
