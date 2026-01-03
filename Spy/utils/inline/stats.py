@@ -2,19 +2,21 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 def stats_buttons(_, status):
+    # Agar user sudo nahi hai
     not_sudo = [
         InlineKeyboardButton(
-            text=_["SA_B_1"],
+            text="GLOBAL SPY ANALYTICS",
             callback_data="TopOverall",
         )
     ]
+    # Agar user sudo/admin hai
     sudo = [
         InlineKeyboardButton(
-            text=_["SA_B_2"],
+            text="SECRET HQ STATS",
             callback_data="bot_stats_sudo",
         ),
         InlineKeyboardButton(
-            text=_["SA_B_3"],
+            text="GLOBAL ANALYTICS",
             callback_data="TopOverall",
         ),
     ]
@@ -23,7 +25,7 @@ def stats_buttons(_, status):
             sudo if status else not_sudo,
             [
                 InlineKeyboardButton(
-                    text=_["CLOSE_BUTTON"],
+                    text="ABORT MISSION",
                     callback_data="close",
                 ),
             ],
@@ -37,11 +39,11 @@ def back_stats_buttons(_):
         [
             [
                 InlineKeyboardButton(
-                    text=_["BACK_BUTTON"],
+                    text="BACK TO BASE",
                     callback_data="stats_back",
                 ),
                 InlineKeyboardButton(
-                    text=_["CLOSE_BUTTON"],
+                    text="TERMINATE",
                     callback_data="close",
                 ),
             ],
