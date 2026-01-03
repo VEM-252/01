@@ -10,8 +10,8 @@ from pyrogram.enums import MessageEntityType
 from concurrent.futures import ThreadPoolExecutor
 from youtubesearchpython.__future__ import VideosSearch, CustomSearch
 
-from IstkharMusic.utils.database import is_on_off
-from IstkharMusic.utils.formatters import time_to_seconds
+from Spy.utils.database import is_on_off
+from Spy.utils.formatters import time_to_seconds
 
 def cookie_txt_file():
     try:
