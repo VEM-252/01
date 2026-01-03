@@ -62,7 +62,7 @@ cp sample.env .env
 nano .env
 
 # Start bot
-tmux new -s spymusic
+tmux new -s SPYMUSIC
 bash start
 # Press CTRL+B then D to detach
 ```
