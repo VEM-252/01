@@ -46,11 +46,11 @@ async def get_stream_url(query, video=False):
     apis = [
         {
             "url": "http://194.182.77.199:1470/youtube",
-            "key": "VNI0X_iM39mnNuHMAEj1h"
+            "key": "VNI0X_oY6oVn7svGENco2"
         },
         {
             "url": "http://194.182.77.199:1470/youtube",
-            "key": "VNI0X_iM39mnNuHMAEj1h"
+            "key": "VNI0X_oY6oVn7svGENco2"
         }
     ]
 
