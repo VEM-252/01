@@ -50,8 +50,7 @@ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install nodejs -y
 
 # Clone repo
-git clone https://github.com/lll-DEADLY-VENOM-lll/SPY_MUSIC &&
-cd SPY_MUSIC
+git clone https://github.com/lll-DEADLY-VENOM-lll/SPY_MUSIC && cd SPY_MUSIC
 
 # Install requirements
 pip3 install -U pip
