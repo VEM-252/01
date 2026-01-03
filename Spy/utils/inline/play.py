@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from Spy import app
 from Spy.utils.formatters import time_to_seconds
 
-# 1. Track Markup (Selection)
+# 1. Track Markup (Isme chat_id nahi hoti, sirf selection hota hai)
 def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
         [
@@ -24,13 +24,13 @@ def track_markup(_, videoid, user_id, channel, fplay):
         ],
         [
             InlineKeyboardButton(
-                text=_["CLOSE_BUTTON"], callback_data=f"forceclose {videoid}|{user_id}"
+                text="〆 ᴄʟᴏsᴇ 〆", callback_data=f"forceclose {videoid}|{user_id}"
             )
         ],
     ]
     return buttons
 
-# 2. Player Timer Markup (The Main Screen)
+# 2. Player Timer Markup (Isme chat_id zaroori hai)
 def stream_markup_timer(_, videoid, chat_id, played, dur):
     played_sec = time_to_seconds(played)
     duration_sec = time_to_seconds(dur)
@@ -87,7 +87,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
     ]
     return buttons
 
-# 3. Stream Markup (Secondary Screen)
+# 3. Stream Markup
 def stream_markup(_, videoid, chat_id):
     buttons = [
         [
@@ -122,7 +122,7 @@ def stream_markup(_, videoid, chat_id):
     ]
     return buttons
 
-# 4. Playlist Markup (JO ERROR AA RAHA THA USKA FIX)
+# 4. Playlist Markup
 def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
     buttons = [
         [
@@ -168,7 +168,7 @@ def livestream_markup(_, videoid, user_id, mode, channel, fplay):
     ]
     return buttons
 
-# 6. Panel Markup 1 (Shuffle & Loop)
+# 6. Panel Markup 1
 def panel_markup_1(_, videoid, chat_id):
     buttons = [
         [
@@ -178,36 +178,21 @@ def panel_markup_1(_, videoid, chat_id):
             ),
         ],
         [
-            InlineKeyboardButton(
-                text="🎧 sᴜғғʟᴇ",
-                callback_data=f"ADMIN Shuffle|{chat_id}",
-            ),
+            InlineKeyboardButton(text="🎧 sᴜғғʟᴇ", callback_data=f"ADMIN Shuffle|{chat_id}"),
             InlineKeyboardButton(text="ʟᴏᴏᴘ ↺", callback_data=f"ADMIN Loop|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(
-                text="◁ 10 sᴇᴄ",
-                callback_data=f"ADMIN 1|{chat_id}",
-            ),
-            InlineKeyboardButton(
-                text="10 sᴇᴄ ▷",
-                callback_data=f"ADMIN 2|{chat_id}",
-            ),
+            InlineKeyboardButton(text="◁ 10 sᴇᴄ", callback_data=f"ADMIN 1|{chat_id}"),
+            InlineKeyboardButton(text="10 sᴇᴄ ▷", callback_data=f"ADMIN 2|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(
-                text="๏ ʜᴏᴍᴇ ๏",
-                callback_data=f"Pages Back|2|{videoid}|{chat_id}",
-            ),
-            InlineKeyboardButton(
-                text="๏ ɴᴇxᴛ ๏",
-                callback_data=f"Pages Forw|2|{videoid}|{chat_id}",
-            ),
+            InlineKeyboardButton(text="๏ ʜᴏᴍᴇ ๏", callback_data=f"Pages Back|2|{videoid}|{chat_id}"),
+            InlineKeyboardButton(text="๏ ɴᴇxᴛ ๏", callback_data=f"Pages Forw|2|{videoid}|{chat_id}"),
         ],
     ]
     return buttons
 
-# 7. Panel Markup 2 (Speed Controls)
+# 7. Panel Markup 2
 def panel_markup_2(_, videoid, chat_id):
     buttons = [
         [
@@ -217,34 +202,16 @@ def panel_markup_2(_, videoid, chat_id):
             ),
         ],
         [
-            InlineKeyboardButton(
-                text="🕒 0.5x",
-                callback_data=f"SpeedUP {chat_id}|0.5",
-            ),
-            InlineKeyboardButton(
-                text="🕓 1.0x",
-                callback_data=f"SpeedUP {chat_id}|1.0",
-            ),
-            InlineKeyboardButton(
-                text="🕤 2.0x",
-                callback_data=f"SpeedUP {chat_id}|2.0",
-            ),
+            InlineKeyboardButton(text="🕒 0.5x", callback_data=f"SpeedUP {chat_id}|0.5"),
+            InlineKeyboardButton(text="🕓 1.0x", callback_data=f"SpeedUP {chat_id}|1.0"),
+            InlineKeyboardButton(text="🕤 2.0x", callback_data=f"SpeedUP {chat_id}|2.0"),
         ],
         [
-            InlineKeyboardButton(
-                text="๏ ᴍᴜᴛᴇ ๏",
-                callback_data=f"ADMIN Mute|{chat_id}",
-            ),
-            InlineKeyboardButton(
-                text="๏ ᴜɴᴍᴜᴛᴇ ๏",
-                callback_data=f"ADMIN Unmute|{chat_id}",
-            ),
+            InlineKeyboardButton(text="๏ ᴍᴜᴛᴇ ๏", callback_data=f"ADMIN Mute|{chat_id}"),
+            InlineKeyboardButton(text="๏ ᴜɴᴍᴜᴛᴇ ๏", callback_data=f"ADMIN Unmute|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(
-                text="๏ ʙᴀᴄᴋ ๏",
-                callback_data=f"Pages Back|1|{videoid}|{chat_id}",
-            ),
+            InlineKeyboardButton(text="๏ ʙᴀᴄᴋ ๏", callback_data=f"Pages Back|1|{videoid}|{chat_id}"),
         ],
     ]
     return buttons
@@ -260,34 +227,17 @@ def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
             ),
         ],
         [
-            InlineKeyboardButton(
-                text=_["P_B_1"],
-                callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}",
-            ),
-            InlineKeyboardButton(
-                text=_["P_B_2"],
-                callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}",
-            ),
+            InlineKeyboardButton(text=_["P_B_1"], callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text=_["P_B_2"], callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(
-                text="◁",
-                callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}",
-            ),
-            InlineKeyboardButton(
-                text=_["CLOSE_BUTTON"],
-                callback_data=f"forceclose {query}|{user_id}",
-            ),
-            InlineKeyboardButton(
-                text="▷",
-                callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}",
-            ),
+            InlineKeyboardButton(text="◁", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
+            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data=f"forceclose {query}|{user_id}"),
+            InlineKeyboardButton(text="▷", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
         ],
     ]
     return buttons
 
 # 9. Close Markup
 def close_markup(_):
-    return InlineKeyboardMarkup(
-        [[InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]
-                    )
+    return InlineKeyboardMarkup([[InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]) 
