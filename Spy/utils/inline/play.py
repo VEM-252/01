@@ -1,114 +1,104 @@
 import math
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from Spy import app
 from Spy.utils.formatters import time_to_seconds
 
-# --- GHOST-NET TERMINAL UI ---
-
-# 1. FILE INTERCEPT (Track Selection)
-def track_markup(_, videoid, user_id, channel, fplay, *args, **kwargs):
+# 1. Aesthetic Track Selection (Glass-Style)
+def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
         [
-            InlineKeyboardButton(text="┌─── ᴅᴇᴄʀʏᴘᴛ ᴀᴜᴅɪᴏ ───┐", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text="✨ Choose Audio", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎬 Choose Video", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="└─── ᴅᴇᴄʀʏᴘᴛ ᴠɪᴅᴇᴏ ───┘", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
-        ],
-        [
-            InlineKeyboardButton(text="[ ᴘᴜʀɢᴇ sᴇssɪᴏɴ ]", callback_data=f"forceclose {videoid}|{user_id}"),
+            InlineKeyboardButton(text="⊹ ᴄʟᴏsᴇ ⊹", callback_data=f"forceclose {videoid}|{user_id}"),
         ],
     ]
     return buttons
 
-# 2. CORE TERMINAL (Main Player with Block-Bar)
-def stream_markup_timer(_, videoid, chat_id, played, dur, *args, **kwargs):
+# 2. Premium Player Markup (Progress Bar + Full Controls)
+def stream_markup_timer(_, chat_id, played, dur):
     played_sec = time_to_seconds(played)
     duration_sec = time_to_seconds(dur)
     percentage = (played_sec / duration_sec) * 100
     umm = math.floor(percentage)
 
-    # Unique Block-Loading Bar (Never seen before in bots)
-    total_blocks = 12
-    filled_blocks = int(total_blocks * umm // 100)
-    bar = "█" * filled_blocks + "▒" * (total_blocks - filled_blocks)
+    # Unique Progress Bar Design (Custom Symbols)
+    bar_length = 12
+    filled_length = int(bar_length * umm // 100)
+    # ━ is filled, ╌ is empty, 🔘 is slider
+    bar = "━" * filled_length + "🔘" + "╌" * (bar_length - filled_length - 1)
     
     buttons = [
         [
-            InlineKeyboardButton(text=f"STATUS: DECODING | {umm}%", callback_data="GetTimer")
+            InlineKeyboardButton(
+                text=f"{played} {bar} {dur}",
+                callback_data="GetTimer",
+            )
         ],
         [
-            InlineKeyboardButton(text=f"「 {played} {bar} {dur} 」", callback_data="GetTimer")
+            InlineKeyboardButton(text="⏮ ʙᴀᴄᴋ", callback_data=f"ADMIN Prev|{chat_id}"),
+            InlineKeyboardButton(text="⏸ ᴘᴀᴜsᴇ", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="▶️ ʀᴇsᴜᴍᴇ", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="⏭ sᴋɪᴘ", callback_data=f"ADMIN Skip|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="├─ ᴇxᴇᴄᴜᴛᴇ ─┤", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="├─ sᴜsᴘᴇɴᴅ ─┤", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="🔁 ʟᴏᴏᴘ", callback_data=f"ADMIN Loop|{chat_id}"),
+            InlineKeyboardButton(text="⏹ sᴛᴏᴘ", callback_data=f"ADMIN Stop|{chat_id}"),
+            InlineKeyboardButton(text="🔀 sʜᴜғғʟᴇ", callback_data=f"ADMIN Shuffle|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="├─ ᴏᴠᴇʀʀɪᴅᴇ ─┤", callback_data=f"ADMIN Skip|{chat_id}"),
-            InlineKeyboardButton(text="├─ ʀᴇ-sʏɴᴄ ─┤", callback_data=f"ADMIN Replay|{chat_id}"),
-        ],
-        [
-            InlineKeyboardButton(text="[ ᴛᴇʀᴍɪɴᴀᴛᴇ ᴘʀᴏᴄᴇss ]", callback_data=f"ADMIN Stop|{chat_id}"),
-        ],
-        [
-            InlineKeyboardButton(text="─── ɢʜᴏsᴛ ᴘᴀɴᴇʟ ───", callback_data=f"MainMarkup {videoid}|{chat_id}"),
+            InlineKeyboardButton(text="⚡ ᴜᴘᴅᴀᴛᴇs", url="https://t.me/YourChannel"), # Change this
+            InlineKeyboardButton(text="🗑 ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
     return buttons
 
-# 3. ARCHIVE ACCESS (Standard Player)
-def stream_markup(_, videoid, chat_id, *args, **kwargs):
+# 3. Minimalist Player (No Timer)
+def stream_markup(_, chat_id):
     buttons = [
         [
-            InlineKeyboardButton(text="┌────── ᴅᴀᴛᴀ ʙᴀsᴇ ──────┐", callback_data=f"spy_playlist {videoid}"),
+            InlineKeyboardButton(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
+            InlineKeyboardButton(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
+            InlineKeyboardButton(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
+            InlineKeyboardButton(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="│ ᴄᴏɴᴛʀᴏʟs │", callback_data=f"Pages Back|3|{videoid}|{chat_id}"),
-            InlineKeyboardButton(text="│ ᴀᴅᴠᴀɴᴄᴇᴅ │", callback_data=f"Pages Forw|0|{videoid}|{chat_id}"),
-        ],
-        [
-            InlineKeyboardButton(text="└────── ᴇxɪᴛ ɴᴇᴛ ──────┘", callback_data="close"),
+            InlineKeyboardButton(text="🛠 ᴍᴇɴᴜ", callback_data=f"ADMIN Menu|{chat_id}"),
+            InlineKeyboardButton(text="🗑 ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
     return buttons
 
-# 4. DATA VAULT (Playlist Selection)
-def playlist_markup(_, videoid, user_id, ptype, channel, fplay, *args, **kwargs):
+# 4. Playlist Selection (Grid Style)
+def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
     buttons = [
         [
-            InlineKeyboardButton(text="[ sᴇᴄᴜʀᴇ-ᴀᴜᴅɪᴏ-ʟɪɴᴋ ]", callback_data=f"SpyPlaylists {videoid}|{user_id}|{ptype}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎵 ᴀᴜᴅɪᴏ ᴘʟᴀʏʟɪsᴛ", callback_data=f"SagarPlaylists {videoid}|{user_id}|{ptype}|a|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="[ sᴇᴄᴜʀᴇ-ᴠɪᴅᴇᴏ-ʟɪɴᴋ ]", callback_data=f"SpyPlaylists {videoid}|{user_id}|{ptype}|v|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎥 ᴠɪᴅᴇᴏ ᴘʟᴀʏʟɪsᴛ", callback_data=f"SagarPlaylists {videoid}|{user_id}|{ptype}|v|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="── ᴀʙᴏʀᴛ ᴀᴄᴄᴇss ──", callback_data=f"forceclose {videoid}|{user_id}"),
+            InlineKeyboardButton(text="🔙 ʙᴀᴄᴋ", callback_data=f"forceclose {videoid}|{user_id}"),
         ],
     ]
     return buttons
 
-# 5. SCANNER SLIDER
-def slider_markup(_, videoid, user_id, query, query_type, channel, fplay, *args, **kwargs):
+# 5. Advanced Slider (Search Results)
+def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
     query = f"{query[:20]}"
     buttons = [
         [
-            InlineKeyboardButton(text=f"sᴄᴀɴɴɪɴɢ: {query}...", callback_data="none"),
+            InlineKeyboardButton(text="🎧 ᴘʟᴀʏ ᴀᴜᴅɪᴏ", callback_data=f"MusicStream {videoid}|{user_id}|a|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🎬 ᴘʟᴀʏ ᴠɪᴅᴇᴏ", callback_data=f"MusicStream {videoid}|{user_id}|v|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="[ ᴘʀᴇᴠɪᴏᴜs ]", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
-            InlineKeyboardButton(text="[ ɴᴇxᴛ ]", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
+            InlineKeyboardButton(text="◁", callback_data=f"slider B|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
+            InlineKeyboardButton(text="🚀 ǫᴜɪᴄᴋ sᴇᴀʀᴄʜ", callback_data=f"forceclose {query}|{user_id}"),
+            InlineKeyboardButton(text="▷", callback_data=f"slider F|{query_type}|{query}|{user_id}|{channel}|{fplay}"),
         ],
         [
-            InlineKeyboardButton(text="[ ᴄᴀɴᴄᴇʟ sᴄᴀɴ ]", callback_data=f"forceclose {query}|{user_id}"),
+            InlineKeyboardButton(text="🗑 ᴄʟᴏsᴇ", callback_data=f"forceclose {query}|{user_id}"),
         ],
     ]
     return buttons
-
-# 6. Compatibility Aliases (TypeError Safe)
-def close_markup(_):
-    return InlineKeyboardMarkup([[InlineKeyboardButton(text="[ ᴅɪsᴄᴏɴɴᴇᴄᴛ ]", callback_data="close")]])
-
-def track_markupp(*args, **kwargs): return track_markup(*args, **kwargs)
-def stream_markup_timerr(*args, **kwargs): return stream_markup_timer(*args, **kwargs)
-def stream_markupp(*args, **kwargs): return stream_markup(*args, **kwargs)
-def playlist_markupp(*args, **kwargs): return playlist_markup(*args, **kwargs)
