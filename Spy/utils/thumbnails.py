@@ -2,38 +2,27 @@ import os
 import re
 import textwrap
 import random
-
 import aiofiles
 import aiohttp
 from PIL import Image, ImageDraw, ImageEnhance, ImageOps, ImageFilter, ImageFont
-from unidecode import unidecode
 from youtubesearchpython.__future__ import VideosSearch
-
 from Spy import app
 from config import YOUTUBE_IMG_URL
-
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    newImage = image.resize((newWidth, newHeight))
-    return newImage
-
+    return image.resize((newWidth, newHeight), Image.Resampling.LANCZOS)
 
 def clear(text):
     list = text.split(" ")
     title = ""
     for i in list:
-        if len(title) + len(i) < 60:
+        if len(title) + len(i) < 30: # Limit for better look
             title += " " + i
     return title.strip()
-
-
-def get_random_color():
-    return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), 255)
-
 
 async def get_thumb(videoid):
     if os.path.isfile(f"cache/{videoid}.png"):
@@ -43,25 +32,12 @@ async def get_thumb(videoid):
     try:
         results = VideosSearch(url, limit=1)
         for result in (await results.next())["result"]:
-            try:
-                title = result["title"]
-                title = re.sub("\W+", " ", title)
-                title = title.title()
-            except:
-                title = "Unsupported Title"
-            try:
-                duration = result["duration"]
-            except:
-                duration = "Unknown Mins"
+            title = result["title"]
+            title = re.sub("\W+", " ", title).title()
+            duration = result["duration"]
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
-            try:
-                views = result["viewCount"]["short"]
-            except:
-                views = "Unknown Views"
-            try:
-                channel = result["channel"]["name"]
-            except:
-                channel = "Unknown Channel"
+            views = result["viewCount"]["short"]
+            channel = result["channel"]["name"]
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -70,97 +46,79 @@ async def get_thumb(videoid):
                     await f.write(await resp.read())
                     await f.close()
 
+        # 1. Background Setup
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"Spy/assets/dil.png")
-        image1 = changeImageSize(1280, 720, youtube)
-        image2 = image1.convert("RGBA")
-        background = image2.filter(filter=ImageFilter.BoxBlur(9))
+        bg = Image.open(f"Spy/assets/dil.png").convert("RGBA") # User's custom asset
+        
+        # Heavy Blur Background
+        background = changeImageSize(1280, 720, youtube)
+        background = background.filter(filter=ImageFilter.GaussianBlur(radius=25))
         enhancer = ImageEnhance.Brightness(background)
-        background = enhancer.enhance(0.5)
+        background = enhancer.enhance(0.4) # Darken background
 
-        image3 = changeImageSize(1280, 720, bg)
-        image5 = image3.convert("RGBA")
-        Image.alpha_composite(background, image5).save(f"cache/temp{videoid}.png")
+        # 2. Circular Artwork Creation
+        logo_size = (450, 450)
+        logo = youtube.convert("RGBA")
+        logo = ImageOps.fit(logo, logo_size, centering=(0.5, 0.5))
+        
+        # Create Circle Mask
+        mask = Image.new("L", logo_size, 0)
+        draw_mask = ImageDraw.Draw(mask)
+        draw_mask.ellipse((0, 0) + logo_size, fill=255)
+        
+        # Apply mask and Neon Border
+        circular_logo = Image.new("RGBA", logo_size, (0, 0, 0, 0))
+        circular_logo.paste(logo, (0, 0), mask=mask)
+        
+        # Draw Neon Ring
+        neon_color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255), 255)
+        draw_ring = ImageDraw.Draw(background)
+        ring_pos = [750, 135, 750+450, 135+450] # Position on right side
+        draw_ring.ellipse([ring_pos[0]-10, ring_pos[1]-10, ring_pos[2]+10, ring_pos[3]+10], outline=neon_color, width=15)
 
-        Xcenter = youtube.width / 2
-        Ycenter = youtube.height / 2
-        x1 = Xcenter - 250
-        y1 = Ycenter - 250
-        x2 = Xcenter + 250
-        y2 = Ycenter + 250
+        # 3. Combine Images
+        background.paste(circular_logo, (750, 135), circular_logo)
+        background.paste(changeImageSize(1280, 720, bg), (0, 0), mask=bg)
 
-        logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((360, 360), Image.Resampling.LANCZOS)
-
-        border_size = 13
-        border_color = get_random_color()
-
-        bordered_logo = Image.new("RGBA", (logo.width + 2 * border_size, logo.height + 2 * border_size), (0, 0, 0, 0))
-        bordered_logo.paste(logo, (border_size, border_size))
-
-        draw = ImageDraw.Draw(bordered_logo)
-        draw.rectangle(
-            [(0, 0), (bordered_logo.width - 1, bordered_logo.height - 1)],
-            outline=border_color,
-            width=border_size
-        )
-
-        background.paste(bordered_logo, (750, 160), bordered_logo)
-        background.paste(image3, (0, 0), mask=image3)
-
+        # 4. Drawing Text and UI
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("Spy/assets/font2.ttf", 45)
-        font2 = ImageFont.truetype("Spy/assets/font2.ttf", 70)
-        arial = ImageFont.truetype("Spy/assets/font2.ttf", 30)
-        name_font = ImageFont.truetype("Spy/assets/font.ttf", 30)
-        para = textwrap.wrap(title, width=30)
-        j = 0
-        draw.text((5, 5), f"SpyXDil", fill="white", font=name_font)
-        for line in para:
-            if j == 1:
-                j += 1
-                draw.text(
-                    (60, 260),
-                    f"{line}",
-                    fill="white",
-                    stroke_width=1,
-                    stroke_fill="white",
-                    font=font,
-                )
-            if j == 0:
-                j += 1
-                draw.text(
-                    (60, 210),
-                    f"{line}",
-                    fill="white",
-                    stroke_width=1,
-                    stroke_fill="white",
-                    font=font,
-                )
-        draw.text(
-            (20, 675),
-            f"{channel} | {views[:23]}",
-            (255, 255, 255),
-            font=arial,
-        )
-        draw.text(
-            (60, 400),
-            "00:00",
-            (255, 255, 255),
-            font=arial,
-        )
-        draw.text(
-            (610, 400),
-            f"{duration[:23]}",
-            (255, 255, 255),
-            font=arial,
-        )
+        title_font = ImageFont.truetype("Spy/assets/font2.ttf", 60)
+        info_font = ImageFont.truetype("Spy/assets/font2.ttf", 35)
+        tag_font = ImageFont.truetype("Spy/assets/font.ttf", 30)
+
+        # Draw Tag (SpyXDil)
+        draw.text((40, 40), "S P Y  M U S I C", fill="white", font=tag_font)
+
+        # Title wrapping
+        lines = textwrap.wrap(title, width=20)
+        y_text = 220
+        for line in lines[:2]: # Only 2 lines for title
+            draw.text((60, y_text), line, fill="white", font=title_font)
+            y_text += 80
+
+        # Channel Info
+        draw.text((60, 420), f"👤 {channel[:20]}", fill="#E0E0E0", font=info_font)
+        draw.text((60, 470), f"👀 {views} Views", fill="#E0E0E0", font=info_font)
+
+        # 5. Stylized Progress Bar (Unique Feature)
+        bar_x1, bar_y, bar_x2 = 60, 580, 600
+        draw.line([(bar_x1, bar_y), (bar_x2, bar_y)], fill="grey", width=8) # Base bar
+        draw.line([(bar_x1, bar_y), (bar_x1 + 250, bar_y)], fill=neon_color, width=8) # Progress
+        draw.ellipse([bar_x1 + 245, bar_y - 10, bar_x1 + 265, bar_y + 10], fill="white") # Slider dot
+
+        # Duration Text
+        draw.text((60, 600), "00:00", fill="white", font=info_font)
+        draw.text((510, 600), f"{duration}", fill="white", font=info_font)
+
+        # Final cleanup and save
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:
             pass
+            
         background.save(f"cache/{videoid}.png")
         return f"cache/{videoid}.png"
+
     except Exception as e:
-        print(e)
+        print(f"Thumbnail Error: {e}")
         return YOUTUBE_IMG_URL
